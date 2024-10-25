@@ -4,21 +4,20 @@ import java.io.File
 import java.io.FileNotFoundException
 
 object Framework {
+    var dataFolder = "ccc_23"
+    var prefix = "level"
 
     @JvmStatic
-    @JvmOverloads
-    fun readInputLines(level: Int, num: Int, prefix: String = "level"): List<String> =
-        tryAccessFile("$prefix$level") { resolve("$prefix${level}_$num.in").readLines() }
+    fun readInputLines(level: Int, num: Int): List<String> =
+        tryAccessFile("$dataFolder\\$prefix$level") { resolve("$prefix${level}_$num.in").readLines() }
 
     @JvmStatic
-    @JvmOverloads
-    fun readInput(level: Int, num: Int, prefix: String = "level"): String =
-        tryAccessFile("$prefix$level") { resolve("$prefix${level}_$num.in").readText().trim() }
+    fun readInput(level: Int, num: Int): String =
+        tryAccessFile("$dataFolder\\$prefix$level") { resolve("$prefix${level}_$num.in").readText().trim() }
 
     @JvmStatic
-    @JvmOverloads
-    fun writeOutput(level: Int, num: Int, output: String, prefix: String = "level") =
-        tryAccessFile("$prefix$level") { resolve("$prefix${level}_$num.out").writeText(output) }
+    fun writeOutput(level: Int, num: Int, output: String) =
+        tryAccessFile("$dataFolder\\$prefix$level") { resolve("$prefix${level}_$num.out").writeText(output) }
 
     /**
      * Try to access via gradle-set run directory, if not found, it means we are running from IDE configuration

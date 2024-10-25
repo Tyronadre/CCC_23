@@ -1,4 +1,4 @@
-package contest
+package contest_24
 
 import framework.Framework
 

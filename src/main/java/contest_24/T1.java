@@ -1,6 +1,6 @@
 package contest_24;
 
-import framework.Framework;
+import util.Framework;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ public class T1 {
         final int level = 1;
         for (int i = 0; i <= 5; i++) {
 
-            var lines = Framework.readInput(level, i).split("\r\n");
+            var lines = Framework.readFileString(level, i).split("\r\n");
             int numberOfLines = Integer.parseInt(lines[0]);
             var output = new ArrayList<List<Integer>>();
             for (int j = 1; j <= numberOfLines; j++) {

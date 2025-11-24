@@ -1,8 +1,7 @@
 package contest_25;
 
-import org.w3c.dom.ls.LSOutput;
+import util.Framework;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +10,8 @@ public class T5 {
         final int level = 5;
         for (int i = 0; i <= 0; i++) {
 
-            var lines = Framework2.readFile(level, i);
-            Framework2.writeOutput(level, i, solve(lines));
+            var lines = Framework.readFile(level, i);
+            Framework.writeOutput(level, i, solve(lines));
         }
     }
 

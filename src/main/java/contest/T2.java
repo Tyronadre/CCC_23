@@ -2,7 +2,7 @@ package contest;
 
 import contest.dataClasses.Coordinate;
 import contest.dataClasses.PirateMap;
-import framework.Framework;
+import util.Framework;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public class T2 {
     public static void main(String[] args) {
         final int level = 2;
         for (int i = 1; i <= 5; i++) {
-            var lines = Framework.readInput(level, i).split("\r\n");
+            var lines = Framework.readFileString(level, i).split("\r\n");
 
             int mapsize = Integer.parseInt(lines[0]);
             PirateMap map = new PirateMap(mapsize, Arrays.copyOfRange(lines, 1, mapsize + 1));

@@ -1,6 +1,5 @@
 package graphLib.base;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
     }
 
     @Override
-    public int compareTo(@NotNull Node<T> otherNode) {
+    public int compareTo(Node<T> otherNode) {
         return this.data.compareTo(otherNode.data);
     }
 

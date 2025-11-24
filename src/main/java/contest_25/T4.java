@@ -1,7 +1,8 @@
 package contest_25;
 
+import util.Framework;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class T4 {
@@ -9,13 +10,13 @@ public class T4 {
         final int level = 4;
         for (int i = 0; i <= 2; i++) {
 
-            var lines = Framework2.readFile(level, i);
+            var lines = Framework.readFile(level, i);
             int numberOfLines = Integer.parseInt(lines.get(0));
             var output = new ArrayList<String>();
             for (int j = 1; j <= numberOfLines; j++) {
                 output.add(solve(lines.get(j)) + "\n");
             }
-            Framework2.writeOutput(level, i, String.join("", output));
+            Framework.writeOutput(level, i, String.join("", output));
         }
     }
 

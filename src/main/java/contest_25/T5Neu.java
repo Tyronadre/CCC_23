@@ -1,27 +1,22 @@
 package contest_25;
 
-import org.jetbrains.annotations.NotNull;
+import util.Framework;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import javax.swing.*;
 import javax.swing.Timer;
-import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
-import java.util.List;
 
 public class T5Neu {
     public static void main(String[] args) {
         final int level = 5;
         for (int i = 2; i <= 2; i++) {
 
-            var lines = Framework2.readFile(level, i);
-            Framework2.writeOutput(level, i, solve(lines));
+            var lines = Framework.readFile(level, i);
+            Framework.writeOutput(level, i, solve(lines));
         }
     }
 
@@ -769,7 +764,7 @@ class Graph {
 record Node(int x, int y) implements Comparable<Node> {
 
     @Override
-    public int compareTo(@NotNull Node o) {
+    public int compareTo(Node o) {
         return Integer.compare(x, o.x);
     }
 }

@@ -1,7 +1,7 @@
 package contest;
 
 import contest.dataClasses.ShipPath;
-import framework.Framework;
+import util.Framework;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public class T3 {
     public static void main(String[] args) {
         final int level = 3;
         for (int i = 0; i <= 5; i++) {
-            var lines = Framework.readInput(level, i).split("\r\n");
+            var lines = Framework.readFileString(level, i).split("\r\n");
 
             int mapSize = Integer.parseInt(lines[0]);
 

@@ -1,6 +1,6 @@
 package contest_24;
 
-import kotlin.Pair;
+import util.*;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ public class T2 {
     public static void main(String[] args) {
         final int level = 2;
         for (int i = 0; i <= 5; i++) {
-            var lines = framework.Framework.readInput(level, i).split("\r\n");
+            var lines = Framework.readFileString(level, i).split("\r\n");
             int numberOfLines = Integer.parseInt(lines[0]);
             var output = new ArrayList<Pair<Integer, Integer>>();
             for (int j = 1; j <= numberOfLines; j++) {
@@ -18,9 +18,9 @@ public class T2 {
             }
             var stringBuilder = new StringBuilder();
             for (var path : output) {
-                stringBuilder.append(path.getFirst()).append(" ").append(path.getSecond()).append("\n");
+                stringBuilder.append(path.first()).append(" ").append(path.second()).append("\n");
             }
-            framework.Framework.writeOutput(level, i, stringBuilder.toString());
+            Framework.writeOutput(level, i, stringBuilder.toString());
         }
     }
 

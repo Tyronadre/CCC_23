@@ -1,7 +1,7 @@
 package contest;
 
 import contest.dataClasses.*;
-import framework.Framework;
+import util.Framework;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ public class T5 {
     public static void main(String[] args) {
         final int level = 5;
         for (int i = 0; i <= 0; i++) {
-            var lines = Framework.readInput(level, i).split("\r\n");
+            var lines = Framework.readFileString(level, i).split("\r\n");
 
             int mapSize = Integer.parseInt(lines[0]);
             PirateMap map = new PirateMap(mapSize, Arrays.copyOfRange(lines, 1, mapSize + 1));

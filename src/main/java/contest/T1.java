@@ -1,6 +1,6 @@
 package contest;
 
-import framework.Framework;
+import util.Framework;
 
 import java.awt.*;
 import java.util.stream.Stream;
@@ -9,7 +9,7 @@ public class T1 {
     public static void main(String[] args) {
         final int level = 1;
         for (int i = 0; i <= 5; i++) {
-            var lines = Framework.readInput(level, i).split("\r\n");
+            var lines = Framework.readFileString(level, i).split("\r\n");
             int mapsize = Integer.parseInt(lines[0]);
             Character[][] map = new Character[mapsize][mapsize];
             for (int j = 0; j < mapsize; j++) {

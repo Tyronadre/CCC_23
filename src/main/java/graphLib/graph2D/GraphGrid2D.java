@@ -2,7 +2,6 @@ package graphLib.graph2D;
 
 import graphLib.base.Graph;
 import graphLib.base.Node;
-import org.jetbrains.annotations.NotNull;
 
 public class GraphGrid2D extends Graph<GraphGrid2D.Point> {
 
@@ -44,7 +43,7 @@ public class GraphGrid2D extends Graph<GraphGrid2D.Point> {
 
     public record Point(int x, int y) implements Comparable<Point> {
         @Override
-        public int compareTo(@NotNull Point o) {
+        public int compareTo(Point o) {
             return Math.abs(x - o.x) + Math.abs(y - o.y);
         }
     }

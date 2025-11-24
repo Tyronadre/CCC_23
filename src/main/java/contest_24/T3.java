@@ -3,6 +3,7 @@ package contest_24;
 import contest_24.dataClasses.Lawn;
 import contest_24.dataClasses.Path;
 import contest_24.dataClasses.PathNode;
+import util.Framework;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +12,7 @@ public class T3 {
     public static void main(String[] args) {
         final int level = 3;
         for (int i = 0; i <= 5; i++) {
-            var lines = framework.Framework.readInput(level, i).split("\r\n");
+            var lines = Framework.readFileString(level, i).split("\r\n");
             int numberOfLines = Integer.parseInt(lines[0]);
 
             var output = new ArrayList<String>();
@@ -46,7 +47,7 @@ public class T3 {
             for (var path : output) {
                 stringBuilder.append(path).append("\n");
             }
-            framework.Framework.writeOutput(level, i, stringBuilder.toString());
+            Framework.writeOutput(level, i, stringBuilder.toString());
         }
     }
 }

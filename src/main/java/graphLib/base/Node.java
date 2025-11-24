@@ -1,6 +1,5 @@
 package graphLib.base;
 
-
 import java.util.List;
 
 public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
@@ -42,5 +41,15 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
     public List<Node<T>> getNeighbors() {
         return graph.getNeighbors(this);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

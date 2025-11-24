@@ -1,43 +1,68 @@
 package graphLib.gui;
 
 import graphLib.alg.Algorithm;
+import graphLib.base.Graph;
+import graphLib.gui.event.AlgorithmChangedEvent;
+import graphLib.gui.event.AlgorithmDrawEvent;
+import graphLib.gui.event.EventBus;
+import graphLib.gui.event.Subscribe;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class BaseGUI<T extends Comparable<T>,V> extends JFrame {
-    private final Algorithm<T,V> algorithm;
+public class BaseGUI<T extends Comparable<T>> extends JFrame {
 
-    public BaseGUI(Algorithm<T,V> algorithm) {
+    private Algorithm<T, ?> algorithm;
+    private Graph<T> graph;
+
+    private JButton startButton;
+    private JButton pauseButton;
+    private JSlider delaySlider;
+
+    public BaseGUI(GraphGUI contentPanel, Graph<T> graph) {
         super("GraphLib");
+        EventBus.instance.register(this);
 
-        this.algorithm = algorithm;
+        this.graph = graph;
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800, 600);
+        this.setSize(1500, 1000);
         this.setLocationRelativeTo(null);
 
-        createContentPanel();
+        var controlPanel = createControlPanel();
+        controlPanel.add(contentPanel.getCustomControls());
+        add(controlPanel, BorderLayout.NORTH);
+        add(contentPanel, BorderLayout.CENTER);
 
-        this.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            this.validate();
+            this.repaint();
+            this.setVisible(true);
+        });
     }
 
-    private void createContentPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
+    private JPanel createControlPanel() {
         JPanel controlPanel = new JPanel();
-        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.PAGE_AXIS));
+        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.LINE_AXIS));
         controlPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        panel.add(controlPanel, BorderLayout.PAGE_START);
+
+        startButton = new JButton("Start");
+        startButton.addActionListener(e -> {
+            algorithm.start();
+            startButton.setEnabled(false);
+        });
+
+        delaySlider = new JSlider(0, 100, 0);
+        delaySlider.createStandardLabels(10);
+        delaySlider.addChangeListener(e ->
+            algorithm.setDelay(delaySlider.getValue())
+        );
 
         var stepButton = new JButton("Step");
         stepButton.setEnabled(false);
-        stepButton.addActionListener(e -> {
-            algorithm.step();
-        });
+        stepButton.addActionListener(e -> algorithm.step());
 
-        var pauseButton = new JButton("Pause");
+        pauseButton = new JButton("Pause");
         pauseButton.addActionListener(e -> {
             if (pauseButton.getText().equals("Pause")) {
                 pauseButton.setText("Resume");
@@ -50,14 +75,28 @@ public class BaseGUI<T extends Comparable<T>,V> extends JFrame {
             }
         });
 
+        controlPanel.add(startButton);
         controlPanel.add(pauseButton);
         controlPanel.add(stepButton);
+        controlPanel.add(new JLabel("Delay: "));
+        controlPanel.add(delaySlider);
 
-        var algoGUI = algorithm.getGUI();
-        if (algoGUI != null) {
-            panel.add(algoGUI, BorderLayout.CENTER);
-        } else {
-            panel.add(new JLabel("No GUI available"), BorderLayout.PAGE_START);
-        }
+        controlPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        return controlPanel;
+    }
+
+    @Subscribe
+    private void onAlgorithmDrawEvent(AlgorithmDrawEvent event) {
+        SwingUtilities.invokeLater(this::repaint);
+    }
+
+    protected void setAlgorithm(Algorithm<T, ?> algorithm) {
+        this.algorithm = algorithm;
+        startButton.setEnabled(true);
+        algorithm.setDelay(delaySlider.getValue());
+        if (pauseButton.getText().equals("Resume")) algorithm.pause();
+
+        EventBus.instance.post(new AlgorithmChangedEvent(algorithm));
     }
 }

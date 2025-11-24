@@ -40,8 +40,9 @@ public class Graph<T extends Comparable<T>> {
         return node;
     }
 
-    public void newEdge(Node<T> source, Node<T> target) {
-        this.outgoing.computeIfAbsent(source.getId(), k -> new ArrayList<>()).add(target);
+    public void newBiEdge(Node<T> node1, Node<T> node2) {
+        this.outgoing.computeIfAbsent(node1.getId(), k -> new ArrayList<>()).add(node2);
+        this.outgoing.computeIfAbsent(node2.getId(), k -> new ArrayList<>()).add(node1);
     }
 
     public void show(){

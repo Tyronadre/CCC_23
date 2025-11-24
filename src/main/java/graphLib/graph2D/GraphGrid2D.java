@@ -2,6 +2,7 @@ package graphLib.graph2D;
 
 import graphLib.base.Graph;
 import graphLib.base.Node;
+import graphLib.gui.GraphGrid2DGui;
 
 public class GraphGrid2D extends Graph<GraphGrid2D.Point> {
 
@@ -16,10 +17,10 @@ public class GraphGrid2D extends Graph<GraphGrid2D.Point> {
                 var newNode = getOrCreateNode(x, y);
 
                 var topNode = getOrNullNode(x, y-1);
-                if (topNode != null) newEdge(newNode, topNode);
+                if (topNode != null) newBiEdge(newNode, topNode);
 
                 var leftNode = getOrNullNode(x-1, y);
-                if (leftNode != null) newEdge(newNode, leftNode);
+                if (leftNode != null) newBiEdge(newNode, leftNode);
             }
         }
     }
@@ -41,10 +42,20 @@ public class GraphGrid2D extends Graph<GraphGrid2D.Point> {
         return newNode(point);
     }
 
+    @Override
+    public void show() {
+        new GraphGrid2DGui(this);
+    }
+
     public record Point(int x, int y) implements Comparable<Point> {
         @Override
         public int compareTo(Point o) {
             return Math.abs(x - o.x) + Math.abs(y - o.y);
+        }
+
+        @Override
+        public int hashCode() {
+            return x | (y << 15);
         }
     }
 }
